@@ -1,11 +1,10 @@
 module Enumerable
   # Your code goes here
+  # You will first have to define my_each
+  # on the Array class. Methods defined in
+  # your enumerable module will have access
+  # to this method
 end
-
-# You will first have to define my_each
-# on the Array class. Methods defined in
-# your enumerable module will have access
-# to this method
 
 class Array
   # Define my_each here
@@ -30,9 +29,12 @@ class Array
     end
     self
   end
-end
 
-meu_array = %w[caju castanha abacate banana melancia]
-meu_array.my_each_with_index do |element, indice|
-  puts element, indice
+  def my_select
+    return to_enum(:my_select) unless block_given?
+
+    results = []
+    my_each { |element| results.push(element) if yield element}
+    results
+  end
 end
